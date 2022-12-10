@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<x-main-layout>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
+    <x-main.header />
 
-<body>
-    <div x-data="{ o: 0 }" x-on:click="o=!o" :class="o && 'bg-red-500'">
-        hello world
-    </div>
-</body>
+    <x-home.main />
 
-</html>
+    <x-main.footer />
+</x-main-layout>

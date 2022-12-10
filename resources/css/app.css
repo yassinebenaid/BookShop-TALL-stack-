@@ -1,3 +1,22 @@
+@import "bootstrap-icons/font/bootstrap-icons";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+*::-webkit-scrollbar {
+    width: 2px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(133, 133, 133, 0.664);
+}
+
+body {
+    font-family: 'Anek Bangla', sans-serif;
+    /* font-family: 'Mukta', sans-serif; */
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+[x-cloak] {
+    display: none;
+}
