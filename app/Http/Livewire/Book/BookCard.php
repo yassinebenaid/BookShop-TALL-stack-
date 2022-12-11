@@ -11,6 +11,7 @@ class BookCard extends Component
 {
     public ModelsBook $book;
     public $liked = false;
+    public $inCart = false;
     public bool $withDiscount = false;
 
 
@@ -33,9 +34,11 @@ class BookCard extends Component
         event(new UserIntractsWithBookCard);
     }
 
-    public function addToCart()
+    public function toggleToCart()
     {
-        BookService::instance()->addToCart($this->book->id);
+        $result = BookService::instance()->toggleToCart($this->book->id);
+
+        $this->inCart = !empty($result["attached"]);
     }
 
 

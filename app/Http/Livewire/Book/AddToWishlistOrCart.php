@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Book;
 
+use App\Services\BookService;
 use Livewire\Component;
 
 class AddToWishlistOrCart extends Component
@@ -23,6 +24,11 @@ class AddToWishlistOrCart extends Component
         if ($this->liked = !empty($attachmentStatus["attached"])) {
             $this->dispatchBrowserEvent("new-item");
         }
+    }
+
+    public function toggleToCart()
+    {
+        $result = BookService::instance()->toggleToCart($this->book->id);
     }
 
 

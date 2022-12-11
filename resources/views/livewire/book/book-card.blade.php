@@ -13,7 +13,7 @@
         @endif
 
 
-        <div class="absolute bottom-4 flex justify-evenly w-full py-2">
+        <div class="absolute flex w-full py-2 bottom-4 justify-evenly">
 
             @auth
                 <div wire:click="addToWishlist" x-cloak x-show="showed" x-transition.0
@@ -22,9 +22,9 @@
                 </div>
             @endauth
 
-            <div wire:click='addToCart' x-show="showed" x-transition.scale.0 x-cloak
+            <div wire:click='toggleToCart' x-show="showed" x-transition.scale.0 x-cloak
                 class="px-3 pt-3 pb-1 rounded-[50%] text-2xl text-white  bg-orange-500/90 cursor-pointer left-8 bottom-5">
-                <i class="bi bi-cart"></i>
+                <i class="bi {{ $inCart ? 'bi-cart-fill' : 'bi-cart' }}"></i>
             </div>
         </div>
 

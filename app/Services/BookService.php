@@ -4,12 +4,13 @@ namespace App\Services;
 
 use App\Models\Book;
 use App\Models\Category;
+use App\Traits\DealWithCookies;
 use App\Traits\DealWithStrings;
 use Illuminate\Support\Facades\Cookie;
 
 class BookService
 {
-    use DealWithStrings;
+    use DealWithStrings, DealWithCookies;
 
 
     protected array|object $filters = [];
@@ -52,25 +53,15 @@ class BookService
      *
      * @return void
      */
-    public function addToCart($book_id)
+    public function toggleToCart($book_id)
     {
         if (auth()->user()) {
-            return auth()->user()->cart()->sync($book_id);
+            return auth()->user()->cart()->toggle($book_id);
         }
 
-        return $this->saveBooksInCookies($book_id);
+        return $this->toggleItemInCookies("books:cart", $book_id);
     }
 
-    private function saveBooksInCookies($book_id)
-    {
-        $cookies = collect(json_decode(request()->cookie("books:cart")));
-
-        $cookies->add($book_id);
-
-        Cookie::queue("books:cart", $cookies->toJson(), 60 * 60 * 5);
-
-        return $cookies;
-    }
 
     public function removeFromCart($book_id)
     {
@@ -84,23 +75,19 @@ class BookService
 
     private function removeBookFromCookies($book_id)
     {
-        $newCooky = collect(json_decode(request()->cookie("books:cart")))->filter(fn ($el) => $el !== $book_id);
+        $new_items = $this->removeItemFromJsonCookie("books:cart", $book_id);
 
-        Cookie::queue("books:cart", $newCooky->toJson(), 60 * 60 * 5);
-
-        return  Book::select("id", "name", "price", "author", "discount", "release_year")->find($newCooky);;
+        return  Book::select("id", "name", "price", "author", "discount", "release_year")->find($new_items);
     }
 
 
     public function getBooksInCart()
     {
         if (auth()->user()) {
-
             return auth()->user()->cart()->select($this->columns)->get();
         }
 
-        $books_in_cookies =  collect(json_decode(request()->cookie("books:cart")))->toArray();
-
+        $books_in_cookies = $this->getItemFromJsonCookie("books:cart");
 
         return  Book::select("id", "name", "price", "author", "discount", "release_year")->find($books_in_cookies);
     }
