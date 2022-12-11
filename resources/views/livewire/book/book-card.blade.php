@@ -16,13 +16,13 @@
         <div class="absolute bottom-4 flex justify-evenly w-full py-2">
 
             @auth
-                <div wire:click="addToWishlist" x-cloak x-show="showed" x-tansition
+                <div wire:click="addToWishlist" x-cloak x-show="showed" x-transition.0
                     class="px-3 pt-3 pb-1 rounded-[50%] text-2xl text-white  bg-orange-500/90 cursor-pointer right-8 bottom-5">
                     <i class="bi {{ $liked ? 'bi-heart-fill text-red-500' : 'bi-heart' }}"></i>
                 </div>
             @endauth
 
-            <div x-show="showed" x-tansition x-cloak
+            <div wire:click='addToCart' x-show="showed" x-transition.scale.0 x-cloak
                 class="px-3 pt-3 pb-1 rounded-[50%] text-2xl text-white  bg-orange-500/90 cursor-pointer left-8 bottom-5">
                 <i class="bi bi-cart"></i>
             </div>

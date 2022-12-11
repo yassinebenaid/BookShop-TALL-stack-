@@ -1,4 +1,4 @@
-<div x-data="{ shown: 0, newItem: false }" x-on:new-item.window="newItem = true">
+<div x-data="{ shown: false, newItem: false }" x-on:new-item.window="newItem = true">
 
     <div x-on:click="shown=true;newItem=false" wire:click="refresh"
         class="relative flex flex-col items-center justify-center duration-200 cursor-pointer hover:text-orange-500 ">
@@ -16,36 +16,62 @@
             class="bg-white w-[50rem] p-4 rounded-lg h-[40rem] relative">
 
             <header class="flex justify-between px-2">
-                <div class="text-xl">Wishlist</div>
+                <div class="text-xl">Cart</div>
                 <div x-on:click="shown=false" class="p-1 cursor-pointer">
                     <i class="bi bi-x-lg"></i>
                 </div>
             </header>
 
-            <div class="max-h-[94%] p-2 mt-3 overflow-y-scroll">
-                {{--
-                @foreach ($books as $book)
-                    <div class="flex items-center justify-between border-b">
+            <div class="h-[74%] p-2 mt-3 overflow-y-scroll">
+
+                @forelse ($books as $book)
+                    <div class="flex items-center justify-between border-b pr-5">
                         <div class="flex gap-6 p-2 ">
-                            <img class="h-20 w-14"
+
+                            {{-- delete button --}}
+                            <div wire:click="removeFromCart('{{ $book->id }}')"> <i
+                                    class="bi bi-x-lg cursor-pointer text-xl text-red-500"></i></div>
+
+
+                            <img class="h-32 w-24"
                                 src="https://4.bp.blogspot.com/-GKFuvO3ssEk/W5K9cOCT7II/AAAAAAAAIuw/odDHEosfIfIwhuLy_axxHJzIkQKbvjQ7ACLcBGAs/s1600/item_XL_9946258_11948756.jpg"
                                 alt="">
                             <div class="flex flex-col">
                                 <a href="{{ route('book.show', $book->id) }}"
                                     class="font-bold hover:underline">{{ $book->name }}</a>
-                                <span class="text-neutral-500">{{ $book->author }},{{ $book->release_year }}</span>
-                                <span class="text-xl">{{ $book->discounted_price }}$</span>
+                                <span
+                                    class="text-neutral-500 text-sm">{{ $book->author }},{{ $book->release_year }}</span>
+                                <span class="text- xl">{{ number_format($book->discounted_price, 2) }}$</span>
                             </div>
                         </div>
-                        <div>
-                            <span wire:click='removeFromWishlist("{{ $book->id }}")'
-                                class="px-5 py-3 mx-2 text-white bg-red-500 rounded-lg cursor-pointer">
-                                Remove <i class="bi bi-trash"></i></span>
-                            <span class="px-5 py-3 mx-2 text-white bg-blue-500 rounded-lg cursor-pointer">
-                                add to cart <i class="bi bi-cart"></i></span>
+                        <div class="flex gap-20 items-center">
+                            <div class="grid grid-cols-4 items-center gap-4 w-32 h-11 mr-4 rounded-lg">
+                                <span><i
+                                        class="bi bi-chevron-left text-xl text-neutral-400 cursor-pointer hover:text-2xl duration-50"></i></span>
+                                <div
+                                    class="border-2 col-span-2 rounded-lg  h-full w-full flex items-center justify-center">
+                                    1</div>
+                                <span><i
+                                        class="bi bi-chevron-right text-xl text-neutral-400 cursor-pointer hover:text-2xl duration-100"></i></span>
+                            </div>
                         </div>
                     </div>
-                @endforeach --}}
+                @empty
+                    <div class="text-neutral-500 text-center">
+                        Cart is empty
+                    </div>
+                @endforelse
+
+            </div>
+
+            <div class="grid justify-end">
+                <div class="px-4 py-3 h-32 flex flex-col justify-between">
+                    <div class="text-2xl text-orange-500 tracking-wide"><span class="text-sm text-slate-600">Total:
+                        </span>452$</div>
+                    <div
+                        class="bg-orange-500 text-white px-4 py-2 rounded-lg cursor-pointer hover:shadow-lg shadow-orange-500">
+                        Next</div>
+                </div>
             </div>
 
 

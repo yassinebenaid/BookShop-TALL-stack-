@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Book;
 
 use App\Events\UserIntractsWithBookCard;
 use App\Models\Book as ModelsBook;
+use App\Services\BookService;
 use Livewire\Component;
 
 class BookCard extends Component
@@ -32,16 +33,10 @@ class BookCard extends Component
         event(new UserIntractsWithBookCard);
     }
 
-    // public function addToCart()
-    // {
-    //     $attachmentStatus = auth()->user()->wishlist()->toggle($this->book->id);
-
-    //     if ($this->liked = !empty($attachmentStatus["attached"])) {
-    //         $this->dispatchBrowserEvent("new-item");
-    //     }
-
-    //     event(new UserIntractsWithBookCard);
-    // }
+    public function addToCart()
+    {
+        BookService::instance()->addToCart($this->book->id);
+    }
 
 
     public function render()
