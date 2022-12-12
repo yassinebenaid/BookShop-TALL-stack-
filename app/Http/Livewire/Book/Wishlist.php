@@ -18,6 +18,7 @@ class Wishlist extends Component
     public function removeFromWishlist($book_id)
     {
         auth()->user()->wishlist()->detach($book_id);
+        $this->refresh();
     }
 
     public function render()

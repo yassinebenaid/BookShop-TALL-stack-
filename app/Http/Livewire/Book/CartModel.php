@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Book;
 
+use App\Events\UserIntractsWithBookCard;
 use App\Services\BookService;
 use Livewire\Component;
 
@@ -17,6 +18,8 @@ class CartModel extends Component
     public function removeFromCart($book_id)
     {
         $this->books =  BookService::instance()->removeFromCart($book_id);
+
+        event(new UserIntractsWithBookCard);
     }
 
 

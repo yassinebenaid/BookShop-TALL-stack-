@@ -21,6 +21,7 @@ class BookCard extends Component
         $this->withDiscount = $withDiscount;
 
         $this->liked = (bool)$book->wishlist->where("id", auth()->id())->first();
+        $this->inCart = (bool)$book->cart->where("id", auth()->id())->first();
     }
 
     public function addToWishlist()
@@ -38,7 +39,11 @@ class BookCard extends Component
     {
         $result = BookService::instance()->toggleToCart($this->book->id);
 
-        $this->inCart = !empty($result["attached"]);
+        if ($this->inCart = !empty($result["attached"])) {
+            $this->dispatchBrowserEvent("new-item-in-cart");
+        }
+
+        event(new UserIntractsWithBookCard);
     }
 
 

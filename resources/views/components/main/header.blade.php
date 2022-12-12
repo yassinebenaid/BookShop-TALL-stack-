@@ -20,32 +20,7 @@
             </div>
         </a>
 
-        <div class="relative col-span-4" x-data="{ opened: false }">
-            <button class="absolute px-5 py-1 left-4 text-neutral-400 top-1"><i class="bi bi-search"></i></button>
-            <input x-on:focus="opened=true" x-on:blur="opened=false" type="search"
-                placeholder="looking for awsome books ?"
-                class="border-0 pl-20 w-full rounded-lg placeholder:text-neutral-400 focus:shadow-lg focus:py-3 focus:rounded-[1rem_1rem_0_0] focus:ring-0">
-
-            <div x-cloak x-show="opened"
-                class="absolute z-10 bg-white w-full shadow-lg p-5 rounded-[0_0_1rem_1rem] border-t">
-                <div class="px-5 py-2 duration-100 cursor-pointer hover:bg-neutral-100"><i
-                        class="px-2 pr-4 bi bi-search text-neutral-400"></i>
-                    pretty good choice</div>
-                <div class="px-5 py-2 duration-100 cursor-pointer hover:bg-neutral-100"><i
-                        class="px-2 pr-4 bi bi-search text-neutral-400"></i>
-                    reflext the id</div>
-                <div class="px-5 py-2 duration-100 cursor-pointer hover:bg-neutral-100"><i
-                        class="px-2 pr-4 bi bi-search text-neutral-400"></i>
-                    somthing new</div>
-                <div class="px-5 py-2 duration-100 cursor-pointer hover:bg-neutral-100"><i
-                        class="px-2 pr-4 bi bi-search text-neutral-400"></i>
-                    greate alpha</div>
-                <div class="px-5 py-2 duration-100 cursor-pointer hover:bg-neutral-100"><i
-                        class="px-2 pr-4 bi bi-search text-neutral-400"></i>
-                    pretty good choice</div>
-
-            </div>
-        </div>
+        <livewire:home.search-bar />
 
 
         <div class="flex justify-end col-span-2 gap-7 px-7 ">
@@ -73,15 +48,18 @@
                             <span class="text-neutral-400 text-start">{{ auth()->user()->email }}</span>
                         </div>
                     @else
-                        <div class="flex gap-3 w-full flex-col">
-                            <a class="bg-blue-500 text-white py-2 px-4 rounded-lg flex-1"
+                        <div class="flex flex-col w-full gap-3">
+                            <a class="flex-1 px-4 py-2 text-white bg-blue-500 rounded-lg"
                                 href="{{ route('register') }}">register</a>
-                            <a class="bg-slate-800 text-white py-2 px-4 rounded-lg flex-1"
+                            <a class="flex-1 px-4 py-2 text-white rounded-lg bg-slate-800"
                                 href="{{ route('login') }}">login</a>
                         </div>
                     @endauth
 
                     <div class="flex flex-col py-2 text-neutral-600">
+                        <a href="{{ route('dashboard') }}"
+                            class="px-3 py-2 text-blue-600 transition-all hover:pl-6 hover:bg-neutral-50"> Dashboard
+                        </a>
                         <div class="px-3 py-2 transition-all hover:pl-6 hover:bg-neutral-50"> about us </div>
                         <div class="px-3 py-2 transition-all hover:pl-6 hover:bg-neutral-50"> contact us </div>
                         <div class="px-3 py-2 transition-all hover:pl-6 hover:bg-neutral-50"> terms </div>

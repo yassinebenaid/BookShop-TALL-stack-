@@ -25,7 +25,7 @@ class BookService
      */
     public function getTopDiscounted()
     {
-        return Book::orderBy("discount", "desc")->take(6)->with("wishlist:id")->get($this->columns);
+        return Book::orderBy("discount", "desc")->take(6)->with(["wishlist:id", "cart:id"])->get($this->columns);
     }
 
     /**
@@ -35,7 +35,7 @@ class BookService
      */
     public function getBooksFromStock()
     {
-        return Book::inRandomOrder()->take(18)->with("wishlist:id")->get($this->columns);
+        return Book::inRandomOrder()->take(18)->with(["wishlist:id", "cart:id"])->get($this->columns);
     }
 
     /**
@@ -47,6 +47,18 @@ class BookService
     {
         return auth()->user()->wishlist()->get(["id", "name", "price", "author", "discount", "release_year"]);
     }
+
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function getSearchSuggestions($keywords)
+    {
+        return Book::take(6)->filter(["keywords" => $keywords])->get(["id", "name"]);
+    }
+
 
     /**
      * Undocumented function
@@ -141,13 +153,13 @@ class BookService
             return $this->currentCategory->books()
                 ->select($this->columns)
                 ->filter($this->filters)
-                ->with("wishlist:id")
+                ->with(["wishlist:id", "cart:id"])
                 ->paginate($count);
         }
 
         return Book::select($this->columns)
             ->filter($this->filters)
-            ->with("wishlist:id")
+            ->with(["wishlist:id", "cart:id"])
             ->paginate($count);
     }
 

@@ -8,12 +8,14 @@ use Livewire\Component;
 class AddToWishlistOrCart extends Component
 {
     public $liked = false;
+    public $inCart = false;
     public $book;
 
     public function mount($book)
     {
         $this->book = $book;
         $this->liked = (bool)$book->wishlist->where("id", auth()->id())->first();
+        $this->inCart = (bool)$book->cart->where("id", auth()->id())->first();
     }
 
 
@@ -29,6 +31,8 @@ class AddToWishlistOrCart extends Component
     public function toggleToCart()
     {
         $result = BookService::instance()->toggleToCart($this->book->id);
+
+        $this->inCart = !empty($result["attached"]);
     }
 
 

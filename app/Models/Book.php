@@ -26,6 +26,10 @@ class Book extends Model
         return $this->belongsToMany(User::class, "wishlist", "book_id", "user_id");
     }
 
+    public function cart()
+    {
+        return $this->belongsToMany(User::class, "cart", "book_id", "user_id");
+    }
 
     public function getDiscountedPriceAttribute()
     {

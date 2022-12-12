@@ -18,7 +18,7 @@
     <livewire:styles />
 </head>
 
-<body>
+<body {{ $attributes }}>
 
     {{ $slot }}
 
