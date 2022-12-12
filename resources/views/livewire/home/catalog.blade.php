@@ -142,6 +142,8 @@
     </div>
 
     <div wire:loading>
-        <x-widgets.loading />
+        <div class="fixed top-0 left-0 grid items-center justify-center w-screen h-screen bg-white/50">
+            <x-widgets.loading />
+        </div>
     </div>
 </div>

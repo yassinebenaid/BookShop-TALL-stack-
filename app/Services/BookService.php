@@ -25,7 +25,7 @@ class BookService
      */
     public function getTopDiscounted()
     {
-        return Book::orderBy("discount", "desc")->take(6)->with(["wishlist:id", "cart:id"])->get($this->columns);
+        return Book::orderBy("discount", "desc")->take(7)->with(["wishlist:id", "cart:id"])->get($this->columns);
     }
 
     /**
@@ -35,7 +35,7 @@ class BookService
      */
     public function getBooksFromStock()
     {
-        return Book::inRandomOrder()->take(18)->with(["wishlist:id", "cart:id"])->get($this->columns);
+        return Book::inRandomOrder()->take(21)->with(["wishlist:id", "cart:id"])->get($this->columns);
     }
 
     /**

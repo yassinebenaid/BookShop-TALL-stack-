@@ -44,7 +44,7 @@ class Catalog extends Component
     public function render()
     {
         return view('livewire.home.catalog')->with([
-            "books" => BookService::instance()->fromTheCurrentCategory()->filteredBy($this->filters)->apply(5)
+            "books" => BookService::instance()->fromTheCurrentCategory()->filteredBy($this->filters)->apply(40)
         ]);
     }
 }
