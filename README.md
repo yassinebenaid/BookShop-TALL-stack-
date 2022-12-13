@@ -1,8 +1,9 @@
 ## Instalation
--1  clone repository
--2  copy `.env.example` to `.env`
--3  run `composer install`
--1  run `php artisan migrate --seed`
+
+- 1  clone repository 
+- 2  copy `.env.example` to `.env`
+- 3  run `composer install`
+- 1  run `php artisan migrate --seed`
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
